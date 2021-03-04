@@ -18,9 +18,9 @@ DROP TABLE IF EXISTS pokentis;
 CREATE TABLE pokentis (
 	id_pokenti INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(16) NOT NULL,
-	number INT NOT NULL );
+	number_ INT NOT NULL );
 
-INSERT INTO pokentis (name, poke_number) VALUES (
+INSERT INTO pokentis (name, number_) VALUES
 	('Bulbasaur',1),
 	('Ivysaur',2),
 	('Venusaur',3),
@@ -36,23 +36,9 @@ INSERT INTO pokentis (name, poke_number) VALUES (
 	('Weedle',13),
 	('Kakuna',14),
 	('Beedrill',15),
-	('Pidgey',16);
+	('Pidgey',16),
 	('Pidgeotto',17),
-	('Pidgeot',18) );
-
-	CREATE TABLE catched (
-		id_catched INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		id_pokenti INT UNSIGNED NOT NULL,
-		FOREIGN KEY (id_player) REFERENCES players(id_player),
-		FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti) );
-
-	INSERT INTO catched (id_pokenti) VALUES (
-		(11),
-		(17),
-		(13),
-		(16),
-		(11),
-		(13) );
+	('Pidgeot',18);
 
 	CREATE TABLE team (
 	id_team INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -64,6 +50,21 @@ INSERT INTO pokentis (name, poke_number) VALUES (
 		(8),
 		(15),
 		(4);
+
+	CREATE TABLE catched (
+		id_catched INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		id_pokenti INT UNSIGNED NOT NULL,
+		FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti) );
+
+	INSERT INTO catched (id_pokenti) VALUES
+		(11),
+		(17),
+		(13),
+		(16),
+		(11),
+		(13);
+
+
 
 	CREATE TABLE evolutions (
 		id_evolutions INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -99,7 +100,7 @@ CREATE TABLE types (
 	primary VARCHAR(16) NOT NULL,
 	secondary VARCHAR(16) NOT NULL );
 
-INSERT INTO types (primary, secondary) VALUES (
+INSERT INTO types (primary, secondary) VALUES
 	('Grass', 'Poison'),
 	('Fire', NULL),
 	('Fire', 'Dragon'),
@@ -108,7 +109,7 @@ INSERT INTO types (primary, secondary) VALUES (
 	('Bug', 'Fliyng'),
 	('Bug', 'Poison'),
 	('Normal', 'Flying'),
-	('Normal', NULL) );
+	('Normal', NULL);
 
 CREATE TABLE pokentis_types (
 	id_pokenti_type INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -117,7 +118,7 @@ CREATE TABLE pokentis_types (
 	FOREING KEY (id_pokenti) REFERENCES pokentis(id_pokenti),
 	FOREING KEY (id_type) REFERENCES types(id_type) );
 
-INSERT INTO pokentis_types (id_pokenti, id_type) VALUES (
+INSERT INTO pokentis_types (id_pokenti, id_type) VALUES
 	(1, 1),
 	(2, 1),
 	(3, 1),
@@ -135,16 +136,16 @@ INSERT INTO pokentis_types (id_pokenti, id_type) VALUES (
 	(15, 7),
 	(16, 8),
 	(17, 8),
-	(18, 8) );
+	(18, 8);
 
 CREATE TABLE players (
 	id_player INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	player VARCHAR(24) NOT NULL );
 
-INSERT INTO players (player) VALUES (
+INSERT INTO players (player) VALUES
 	('Ash'),
 	('Misty'),
-	('Brock') );
+	('Brock');
 
 CREATE TABLE players_pokentis (
 	id_players_pokentis INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -153,14 +154,14 @@ CREATE TABLE players_pokentis (
 	FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti),
 	FOREIGN KEY (id_player) REFERENCES players(id_player) );
 
-INSERT INTO players_pokentis (id_player, id_pokentis) VALUES (
+INSERT INTO players_pokentis (id_player, id_pokentis) VALUES
 	(1, 7),
 	(1, 10),
 	(1, 16),
 	(2, 1),
 	(2, 12),
 	(3, 4),
-	(3, 18) );
+	(3, 18);
 
 CREATE TABLE stats (
 	id_stat INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -172,7 +173,7 @@ CREATE TABLE stats (
 	id_pokenti INT UNSIGNED NOT NULL,
 	FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti) );
 
-INSERT INTO stats (hp, atk, def, special, speed, id_pokenti) VALUES (
+INSERT INTO stats (hp, atk, def, special, speed, id_pokenti) VALUES
 	(45, 49, 49, 65, 45, 1),
 	(60, 62, 63, 80, 60, 2),
 	(80, 82, 83, 100, 80, 3),
@@ -190,7 +191,7 @@ INSERT INTO stats (hp, atk, def, special, speed, id_pokenti) VALUES (
 	(65, 90, 40, 45, 75, 15),
 	(40, 45, 40, 35, 56, 16),
 	(63, 60, 55, 50, 71, 17),
-	(83, 80, 75, 70, 101, 18) );
+	(83, 80, 75, 70, 101, 18);
 
 CREATE TABLE current_stats (
 	id_current_stat INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -204,7 +205,7 @@ CREATE TABLE current_stats (
 	id_pokenti INT UNSIGNED NOT NULL,
 	FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti) );
 
-INSERT INTO current_stats (curr_level, curr_hp, cur_atk, curr_def, curr_special, curr_speed, curr_exp, id_pokenti) VALUES (
+INSERT INTO current_stats (curr_level, curr_hp, cur_atk, curr_def, curr_special, curr_speed, curr_exp, id_pokenti) VALUES
 	(5, 13, 32, 60, 15, 15, 31, 1),
 	(18, 26, 43, 40, 45, 75, 15, 2),
 	(58, 8, 18, 56, 10, 38, 55, 3),
@@ -222,7 +223,7 @@ INSERT INTO current_stats (curr_level, curr_hp, cur_atk, curr_def, curr_special,
 	(84, 86, 10, 14, 40, 40, 75, 15),
 	(1, 42, 5, 40, 47, 54, 25, 16),
 	(25, 6, 20, 55, 40, 40, 21, 17),
-	(44, 18, 50, 75, 17, 14, 10, 18) );
+	(44, 18, 50, 75, 17, 14, 10, 18);
 
 
 	DELIMITER ;
