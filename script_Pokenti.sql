@@ -1,19 +1,20 @@
 
-DROP TABLE IF EXISTS types;
-DROP TABLE IF EXISTS pokentis_types;
 
-DROP TABLE IF EXISTS evolutions;
+DROP TABLE IF EXISTS evolves_level;
+DROP TABLE IF EXISTS levels;
+DROP TABLE IF EXISTS evolves;
+
+DROP TABLE IF EXISTS pokentis_types;
+DROP TABLE IF EXISTS types;
 
 DROP TABLE IF EXISTS stats;
+
+DROP TABLE IF EXISTS catched;
+DROP TABLE IF EXISTS bag;
+
 DROP TABLE IF EXISTS current_stats;
 
-DROP TABLE IF EXISTS pokentis_players;
-DROP TABLE IF EXISTS catched;
-DROP TABLE IF EXISTS team;
-
-DROP TABLE IF EXISTS players;
 DROP TABLE IF EXISTS pokentis;
-
 
 CREATE TABLE pokentis (
 	id_pokenti INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -74,7 +75,7 @@ INSERT INTO pokentis (name, number_) VALUES
 		id_pokenti INT UNSIGNED NOT NULL,
 		FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti) );
 
-INSERT INTO evolutions (can, lvl, evolution, id_pokenti) VALUES (
+INSERT INTO evolutions (can, lvl, evolution, id_pokenti) VALUES
 	(1, 16,'Ivysaur', 1),
 	(1, 32,'Venusaur', 2),
 	(0, NULL, NULL, 3),
@@ -92,15 +93,15 @@ INSERT INTO evolutions (can, lvl, evolution, id_pokenti) VALUES (
 	(0, NULL, NULL, 15),
 	(1, 18, 'Pidgeotto', 16),
 	(1, 36, 'Pidgeot', 17),
-	(0, NULL, NULL, 18) );
+	(0, NULL, NULL, 18);
 
 
 CREATE TABLE types (
 	id_type INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	primary VARCHAR(16) NOT NULL,
-	secondary VARCHAR(16) NOT NULL );
+	type_1 VARCHAR(16),
+	type_2 VARCHAR(16));
 
-INSERT INTO types (primary, secondary) VALUES
+INSERT INTO types (type_1, type_2) VALUES
 	('Grass', 'Poison'),
 	('Fire', NULL),
 	('Fire', 'Dragon'),
@@ -115,8 +116,8 @@ CREATE TABLE pokentis_types (
 	id_pokenti_type INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_pokenti INT UNSIGNED NOT NULL,
 	id_type INT UNSIGNED NOT NULL,
-	FOREING KEY (id_pokenti) REFERENCES pokentis(id_pokenti),
-	FOREING KEY (id_type) REFERENCES types(id_type) );
+	FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti),
+	FOREIGN KEY (id_type) REFERENCES types(id_type) );
 
 INSERT INTO pokentis_types (id_pokenti, id_type) VALUES
 	(1, 1),
@@ -138,30 +139,7 @@ INSERT INTO pokentis_types (id_pokenti, id_type) VALUES
 	(17, 8),
 	(18, 8);
 
-CREATE TABLE players (
-	id_player INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	player VARCHAR(24) NOT NULL );
 
-INSERT INTO players (player) VALUES
-	('Ash'),
-	('Misty'),
-	('Brock');
-
-CREATE TABLE players_pokentis (
-	id_players_pokentis INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	id_player INT UNSIGNED NOT NULL
-	id_pokenti INT UNSIGNED NOT NULL,
-	FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti),
-	FOREIGN KEY (id_player) REFERENCES players(id_player) );
-
-INSERT INTO players_pokentis (id_player, id_pokentis) VALUES
-	(1, 7),
-	(1, 10),
-	(1, 16),
-	(2, 1),
-	(2, 12),
-	(3, 4),
-	(3, 18);
 
 CREATE TABLE stats (
 	id_stat INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
