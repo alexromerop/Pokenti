@@ -181,7 +181,7 @@ CREATE TABLE current_stats (
 	id_pokenti INT UNSIGNED NOT NULL,
 	FOREIGN KEY (id_pokenti) REFERENCES pokentis(id_pokenti) );
 
-INSERT INTO current_stats (curr_level, curr_hp, cur_atk, curr_def, curr_special, curr_speed, curr_exp, id_pokenti) VALUES
+INSERT INTO current_stats (curr_level, curr_hp, curr_atk, curr_def, curr_special, curr_speed, curr_exp, id_pokenti) VALUES
 	(5, 13, 32, 60, 15, 15, 31, 1),
 	(18, 26, 43, 40, 45, 75, 15, 2),
 	(58, 8, 18, 56, 10, 38, 55, 3),
